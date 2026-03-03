@@ -21,9 +21,9 @@ L'utilisateur :
 
 ### Exemple d’image à broder
 
-![Exemple image pixelisée](https://edutechwiki.unige.ch/fr/Fichier:Machine_a_broder_manuelle.jpg)
+![Exemple image pixelisée](https://edutechwiki.unige.ch/fmediawiki/images/6/6d/Machine_a_broder_manuelle.jpg)
 
-*(Source : Edutech Wiki )*
+*(Source : Edutech Wiki – Exemple de pixel art)*
 
 ---
 
