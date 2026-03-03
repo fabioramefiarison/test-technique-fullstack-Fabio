@@ -64,11 +64,7 @@ Exemple de logique métier :
 - Vitesse machine = 800 points/minute
 - 1 cm² = 400 points
 
-Illustration d’une machine à broder :
 
-![Machine à broder](https://upload.wikimedia.org/wikipedia/commons/4/4c/Embroidery_machine.jpg)
-
-*(Source : Wikimedia Commons – Machine industrielle de broderie)*
 
 ---
 
@@ -83,7 +79,7 @@ Illustration d’une machine à broder :
 
 ### 2️⃣ Analyse de la palette
 - Extraction des couleurs dominantes
-- Quantification (ex: K-Means)
+- Quantification (ex: K-Means [algorithe de K-Means})
 
 ### 3️⃣ Calcul des surfaces
 - Comptage pixels par couleur
