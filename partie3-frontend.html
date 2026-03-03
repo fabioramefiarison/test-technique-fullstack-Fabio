@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des tâches</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Liste des tâches bloquées</h1>
+
+<div class="filters">
+    <input type="text" id="searchInput" placeholder="Rechercher par nom de tâche..." />
+
+    <select id="projectFilter">
+        <option value="">Tous les projets</option>
+    </select>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nom de la tâche</th>
+            <th>Projet</th>
+            <th>Priorité</th>
+            <th>Raison du blocage</th>
+        </tr>
+    </thead>
+    <tbody id="tasksTableBody">
+        <!-- Rempli dynamiquement -->
+    </tbody>
+</table>
+
+<script>
+/* ===========================
+   1. Initialisation des données
+=========================== */
+
+// Si aucune donnée en localStorage, on initialise
+if (!localStorage.getItem("tasks")) {
+    const initialTasks = [
+        {
+            name: "Configurer le serveur",
+            project: "Implémentation Client A",
+            priority: 1,
+            block_reason: "En attente des accès"
+        },
+        {
+            name: "Rédiger la documentation",
+            project: "Projet interne",
+            priority: 3,
+            block_reason: "Manque d'informations"
+        },
+        {
+            name: "Mettre à jour le schéma de données",
+            project: "Implémentation Client B",
+            priority: 2,
+            block_reason: "Décision métier en attente"
+        }
+    ];
+
+    localStorage.setItem("tasks", JSON.stringify(initialTasks));
+}
+
+function getTasks() {
+    return JSON.parse(localStorage.getItem("tasks")) || [];
+}
+
+/* ===========================
+   2. Affichage des tâches
+=========================== */
+
+function renderTasks(tasks) {
+    const tbody = document.getElementById("tasksTableBody");
+    tbody.innerHTML = "";
+
+    tasks.forEach(task => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${task.name}</td>
+            <td>${task.project}</td>
+            <td>${task.priority}</td>
+            <td>${task.block_reason}</td>
+        `;
+
+        tbody.appendChild(row);
+    });
+}
+
+/* ===========================
+   3. Remplir le select projets
+=========================== */
+
+function populateProjectFilter(tasks) {
+    const select = document.getElementById("projectFilter");
+
+    const projects = [...new Set(tasks.map(task => task.project))];
+
+    projects.forEach(project => {
+        const option = document.createElement("option");
+        option.value = project;
+        option.textContent = project;
+        select.appendChild(option);
+    });
+}
+
+/* ===========================
+   4. Filtrage
+=========================== */
+
+function applyFilters() {
+    const searchValue = document.getElementById("searchInput").value.toLowerCase();
+    const selectedProject = document.getElementById("projectFilter").value;
+
+    let tasks = getTasks();
+
+    if (searchValue) {
+        tasks = tasks.filter(task =>
+            task.name.toLowerCase().includes(searchValue)
+        );
+    }
+
+    if (selectedProject) {
+        tasks = tasks.filter(task =>
+            task.project === selectedProject
+        );
+    }
+
+    renderTasks(tasks);
+}
+
+/* ===========================
+   5. Événements
+=========================== */
+
+document.getElementById("searchInput").addEventListener("input", applyFilters);
+document.getElementById("projectFilter").addEventListener("change", applyFilters);
+
+/* ===========================
+   6. Initialisation au chargement
+=========================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tasks = getTasks();
+    populateProjectFilter(tasks);
+    renderTasks(tasks);
+});
+</script>
+
+</body>
+</html>
