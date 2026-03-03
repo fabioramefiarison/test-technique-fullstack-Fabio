@@ -19,13 +19,6 @@ L'utilisateur :
 
 ## 2. Illustration du Processus
 
-### Exemple d’image à broder
-
-![Exemple image pixelisée](https://edutechwiki.unige.ch/fmediawiki/images/6/6d/Machine_a_broder_manuelle.jpg)
-
-*(Source : Edutech Wiki – Exemple de pixel art)*
-
----
 
 ### Étape 1 : Analyse des couleurs (Color Clustering)
 
